@@ -2,7 +2,7 @@
  * Project 4 - OOP Game App
  * app.js */
 
-const listOfPhrases = ["ab", "bc", "cd", "de", "ef"];
+const listOfPhrases = ["hi there", "hello", "cat", "dog", "giraffe"];
 const currGame = new Game(listOfPhrases);
 
 // Event listener for start button
