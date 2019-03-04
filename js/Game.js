@@ -3,9 +3,9 @@
  * Game.js */
 class Game {
 
-  constructor (phrases) {
+  constructor () {
     this.missed = 0;
-    this.phrases = phrases
+    this.phrases = ["hi there", "hello", "cat", "dog", "giraffe"];
     this.activePhrase = null;
     this.phraseObject = new Phrase("");
   }
@@ -17,7 +17,7 @@ class Game {
     startingScreen.style.display = "None";
 
     // Gets random phrase
-    this.activePhrase = currGame.getRandomPhrase();
+    this.activePhrase = this.getRandomPhrase();
     this.phraseObject.addPhraseToDisplay(this.activePhrase);
   }
 
