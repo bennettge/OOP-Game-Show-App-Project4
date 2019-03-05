@@ -5,9 +5,12 @@ class Game {
 
   constructor () {
     this.missed = 0;
-    this.phrases = ["hi there", "hello", "cat", "dog", "giraffe"];
+    this.phrases = [new Phrase("howa area youa"),
+                    new Phrase("ahit there"),
+                    new Phrase("a meow meow"),
+                    new Phrase("dog god"),
+                    new Phrase("giraffeeeeee")];
     this.activePhrase = null;
-    this.phraseObject = new Phrase("");
   }
 
   startGame() {
@@ -16,9 +19,9 @@ class Game {
     const startingScreen = document.getElementById("overlay");
     startingScreen.style.display = "None";
 
-    // Gets random phrase
-    this.activePhrase = this.getRandomPhrase();
-    this.phraseObject.addPhraseToDisplay(this.activePhrase);
+    // Selects the phrase to be used
+    this.activePhrase = currGame.getRandomPhrase();
+    this.activePhrase.addPhraseToDisplay();
   }
 
   getRandomPhrase() {
@@ -29,25 +32,56 @@ class Game {
 
   }
 
-  handleInteraction() {
-    // (1) Checks to see if button is clicked by the player
-    // (2) Disables on-screen letter
-    // (3) If wrong, call removeLife() and add "wrong" class to letter button
-    // (4) If right, call showMatchedLetter() and add "chosen" class to letter button
-    // (5) If player has won game call the gameOver() method
+  handleInteraction(chosenButton) {
+
+    if (this.activePhrase.checkLetter(chosenButton.textContent) === true) {
+
+      this.activePhrase.showMatchedLetter(chosenButton.textContent);
+      chosenButton.className = "chosen";
+
+      if (currGame.checkForWin() === true) {
+        currGame.gameOver(true);
+      }
+
+    }
+
+    else {
+      chosenButton.className = "wrong";
+      currGame.removeLife();
+    }
+
+    chosenButton.disabled = true;
+    currGame.checkForWin();
+
   }
 
   removeLife() {
-    //(1) Removes heart from scoreboard by replacing liveHeart.png with lostHeart.png
-    //(2) Increments missed property
-    //(3) If player runs out of lives, call gameOver() function
+    const heartToChange = document.querySelectorAll(".tries img")[this.missed];
+    heartToChange.src = "images/lostHeart.png";
+    this.missed++;
+    if (this.missed > 4) {
+      currGame.gameOver(false);
+    }
   }
 
   checkForWin() {
-    // Checks to see if player has revealed all letters in the phrase
+    const numRevealed = document.getElementsByClassName("hide").length;
+    return (numRevealed === 0);
   }
 
-  gameOver() {
+  gameOver(hasWon) {
+
+    const startingScreen = document.getElementById("overlay");
+    startingScreen.style.display = "";
+
+    if (hasWon === true) {
+      startingScreen.textContent = "You Win!";
+      startingScreen.className = "win";
+    } else {
+      startingScreen.textContent = "You Lose...";
+      startingScreen.className = "lose";
+    }
+
     // (1) Displays the original start screen overlay
     // (2) Updates overlay h1 element with win or loss message
     // (3) Replaces overlay "start" class with "win" or "lose" class
