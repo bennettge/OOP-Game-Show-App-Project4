@@ -2,8 +2,7 @@
  * Project 4 - OOP Game App
  * app.js */
 
-// Declaration of currGame
-const currGame;
+let currGame = null;
 
 // Event listener elements
 const startButton = document.getElementById("btn__reset");
