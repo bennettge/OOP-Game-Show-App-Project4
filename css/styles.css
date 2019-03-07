@@ -30,7 +30,7 @@ body {
   height: 100vh;
 }
 
-li, ol, ul {
+li, ol, ul{
   padding: 0;
   display: inline-block;
 }
@@ -111,7 +111,7 @@ button {
 
 .show {
   color: #fff;
-  background-color: #4ac0d5;
+  background-color: lightblue;
   font-size: 20px;
   height: 65px;
   width: 65px;
@@ -130,15 +130,17 @@ button {
   justify-content: center;
 }
 
+/* Changed background color to green */
 .chosen {
-  background: #3a3f58;
+  background: green;
   border-radius: 5px;
   font-size: var(--font-size-medium);
   color: #FFFFFF;
 }
 
+/* Changed background color to red */
 .wrong {
-  background: #f7a964;
+  background: red;
   color: #FFFFFF;
 }
 

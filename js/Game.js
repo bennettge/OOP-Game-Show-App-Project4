@@ -3,6 +3,7 @@
  * Game.js */
 class Game {
 
+  // Default constructor for Game class
   constructor () {
     this.missed = 0;
     this.phrases = [new Phrase("howa area youa"),
@@ -13,6 +14,8 @@ class Game {
     this.activePhrase = null;
   }
 
+
+  // Method for priming values to start game
   startGame() {
 
     // Hides the start screen overlay
@@ -24,6 +27,8 @@ class Game {
     this.activePhrase.addPhraseToDisplay();
   }
 
+
+  // Returns a random phrase from this.phrases
   getRandomPhrase() {
 
     // Returns random phrase from list of phrases
@@ -32,13 +37,18 @@ class Game {
 
   }
 
-  handleInteraction(chosenButton) {
 
-    if (this.activePhrase.checkLetter(chosenButton.textContent) === true) {
+  // Handles any interaction (either mouseclick or keypress)
+  handleInteraction(chosenButton, charValue) {
 
-      this.activePhrase.showMatchedLetter(chosenButton.textContent);
+    // Checks if character is in the current phrase
+    if (this.activePhrase.checkLetter(charValue) === true) {
+
+      // Shows character and changes letter to green
+      this.activePhrase.showMatchedLetter(charValue);
       chosenButton.className = "chosen";
 
+      // Checks if player has won the game
       if (currGame.checkForWin() === true) {
         currGame.gameOver(true);
       }
@@ -46,46 +56,63 @@ class Game {
     }
 
     else {
+
+      // Makes player lose one life and changes letter to red
       chosenButton.className = "wrong";
       currGame.removeLife();
+
     }
 
+    // Disables the selected button
     chosenButton.disabled = true;
-    currGame.checkForWin();
 
   }
 
+
+  // Removes life from player and changes heart image to represent # of lives
   removeLife() {
+
+    // Changes liveHeart image to lostheart image
     const heartToChange = document.querySelectorAll(".tries img")[this.missed];
     heartToChange.src = "images/lostHeart.png";
+
+    // Increments number of lost lives
     this.missed++;
+
+    // Checks for player loss
     if (this.missed > 4) {
       currGame.gameOver(false);
     }
+    
   }
 
+
+  // Checks if player has revealed all the letters on the board
   checkForWin() {
-    const numRevealed = document.getElementsByClassName("hide").length;
-    return (numRevealed === 0);
+    const numLeftToReveal = document.getElementsByClassName("hide").length;
+    return (numLeftToReveal === 0);
   }
 
+
+  // Shows option for if game is over based on passed boolean for win or lose
   gameOver(hasWon) {
 
+    // Makes starting screen appear again
     const startingScreen = document.getElementById("overlay");
     startingScreen.style.display = "";
 
+    // If player has won, it shows a win banner
     if (hasWon === true) {
       startingScreen.textContent = "You Win!";
       startingScreen.className = "win";
-    } else {
+    }
+
+    // If player has lost it shows a lose banner
+    else {
       startingScreen.textContent = "You Lose...";
       startingScreen.className = "lose";
     }
 
-    // (1) Displays the original start screen overlay
-    // (2) Updates overlay h1 element with win or loss message
-    // (3) Replaces overlay "start" class with "win" or "lose" class
   }
 
-
-}
+} // End Game Class
