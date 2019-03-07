@@ -14,14 +14,14 @@ class Phrase {
    addPhraseToDisplay() {
 
      // Gets container for the hidden letters
-     const hiddenLetterContainer = document.getElementById("phrase");
+     const hiddenLetterContainer = document.querySelector("ul");
 
      // Loops through letters placing them on the screen
      for (let index = 0; index < this.phrase.length; index++) {
        const hiddenLetterBox = this.createHiddenLetter(this.phrase[index]);
        hiddenLetterContainer.appendChild(hiddenLetterBox);
      }
-     
+
    }
 
 

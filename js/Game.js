@@ -6,11 +6,11 @@ class Game {
   // Default constructor for Game class
   constructor () {
     this.missed = 0;
-    this.phrases = [new Phrase("howa area youa"),
-                    new Phrase("ahit there"),
-                    new Phrase("a meow meow"),
-                    new Phrase("dog god"),
-                    new Phrase("giraffeeeeee")];
+    this.phrases = [new Phrase("how are you"),
+                    new Phrase("you win"),
+                    new Phrase("you lose"),
+                    new Phrase("mary had a little lamb"),
+                    new Phrase("phrase hunter")];
     this.activePhrase = null;
   }
 
@@ -83,7 +83,7 @@ class Game {
     if (this.missed > 4) {
       currGame.gameOver(false);
     }
-    
+
   }
 
 
@@ -98,19 +98,21 @@ class Game {
   gameOver(hasWon) {
 
     // Makes starting screen appear again
-    const startingScreen = document.getElementById("overlay");
-    startingScreen.style.display = "";
+    const overlay = document.getElementById("overlay");
+    const h1 = document.getElementById("game-over-message");
+    overlay.style.display = "";
 
     // If player has won, it shows a win banner
     if (hasWon === true) {
-      startingScreen.textContent = "You Win!";
-      startingScreen.className = "win";
+      h1.textContent = "You Win!";
+      overlay.className = "win";
     }
 
     // If player has lost it shows a lose banner
     else {
-      startingScreen.textContent = "You Lose...";
-      startingScreen.className = "lose";
+      h1.textContent = "You Lose...";
+
+      overlay.className = "lose";
     }
 
   }
