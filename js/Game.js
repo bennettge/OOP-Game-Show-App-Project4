@@ -41,6 +41,9 @@ class Game {
   // Handles any interaction (either mouseclick or keypress)
   handleInteraction(chosenButton, charValue) {
 
+    // Disables the selected button
+    chosenButton.disabled = true;
+
     // Checks if character is in the current phrase
     if (this.activePhrase.checkLetter(charValue) === true) {
 
@@ -62,9 +65,6 @@ class Game {
       currGame.removeLife();
 
     }
-
-    // Disables the selected button
-    chosenButton.disabled = true;
 
   }
 
@@ -97,6 +97,9 @@ class Game {
   // Shows option for if game is over based on passed boolean for win or lose
   gameOver(hasWon) {
 
+    // Resets gamestate
+    currGame.resetElements();
+
     // Makes starting screen appear again
     const overlay = document.getElementById("overlay");
     const h1 = document.getElementById("game-over-message");
@@ -113,6 +116,34 @@ class Game {
       h1.textContent = "You Lose...";
 
       overlay.className = "lose";
+    }
+
+  }
+
+
+  // Resets elements in between games
+  resetElements () {
+
+    // Initializes elements into variables
+    const heartsToChange = document.querySelectorAll(".tries img");
+    const chosenButtons = document.querySelectorAll(":disabled");
+    const ulToRemoveFrom = document.querySelectorAll("ul")[0];
+    const numChildren = ulToRemoveFrom.children.length;
+
+    // Resets keyboard buttons
+    for (let index = 0; index < chosenButtons.length; index++) {
+      chosenButtons[index].disabled = false;
+      chosenButtons[index].className = "key";
+    }
+
+    // Resets hearts
+    for (let index = 0; index < heartsToChange.length; index++) {
+      heartsToChange[index].src = "images/liveHeart.png";
+    }
+
+    // Resets phrase li elements
+    for (let index = 0; index < numChildren; index++) {
+      ulToRemoveFrom.removeChild(ulToRemoveFrom.childNodes[0]);
     }
 
   }
